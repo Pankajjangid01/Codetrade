@@ -30,6 +30,7 @@ countryname("USA")
 countryname("UK")
 countryname()
 countryname("Australia")
+countryname("Sweden")
 
 
 # passing a list as an argument
