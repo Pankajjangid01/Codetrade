@@ -4,7 +4,7 @@ Quick sort: Choose one element as pivot element and moves other elements along t
 Time complexity: 
     1.Best case: O(n)
     2.Average case: O(n log n)
-    3.Worst case: O(n^2)
+    3.Worst case:O(n^2)
 """
 
 def partition(mylist,start,end):
