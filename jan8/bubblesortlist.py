@@ -17,7 +17,7 @@ def sortbubble(fruits):
 fruits=[1,6,2,1,9,3,7,5]
 fruits=list(set(fruits))
 sortbubble(fruits)
-fruits=[num for num in fruits if num is not None]
+fruits=[num for num in fruits if num is not None]  #used list comprehension syntax to loop the list
 print("sorting in the function",fruits)
 
 
