@@ -50,7 +50,6 @@ print(returnfunction())
 """
 pass statement--> function definition cannot be empty
 if it is empty it will give error so to ignore the error and we dont have content for the funtion we have to write pass in its body 
-
 """
 def passfuntion():
     pass   

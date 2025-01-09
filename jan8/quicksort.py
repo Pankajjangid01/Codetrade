@@ -1,7 +1,5 @@
 """
-Quick sort: It is one of the fastest sorting algorithm
-            The Quicksort algorithm takes an array of values
-            Choose one element as pivot element and moves other elements so that lower values comes to the left of the pivot and 
+Quick sort: Choose one element as pivot element and moves other elements along the pivot so that lower values comes to the left of the pivot and 
             higher values are on the right of it.
 Time complexity: 
     1.Best case: O(n)
@@ -31,26 +29,26 @@ print(mylist)
 
 
 # Taking first element as pivot 
-def partition2(mylist,start,end):
-    pivot=mylist[start]
+def partition2(mylist1,start,end):
+    pivot=mylist1[start]
     low=start+1
     high=end
     while True:
-        while low<=high and mylist[high]>=pivot:
+        while low<=high and mylist1[high]>=pivot:
             high=high-1
-        while low<=high and mylist[low]<=pivot:
+        while low<=high and mylist1[low]<=pivot:
             low+=1
         if low<=high:
-            mylist[low],mylist[high]=mylist[high],mylist[low]
+            mylist1[low],mylist1[high]=mylist1[high],mylist[low]
         else:
             break
-    mylist[start],mylist[high]=mylist[high],mylist[start]
+    mylist1[start],mylist1[high]=mylist1[high],mylist1[start]
     return high
-def quicksort2(mylist,start,end):
+def quicksort2(mylist1,start,end):
     if start<end:
-        pivotindex=partition2(mylist,start,end)
-        quicksort2(mylist,start,pivotindex-1)
-        quicksort2(mylist,pivotindex+1,end)
-mylist=[5,6,2,3,10,4,45,25,35]
-quicksort2(mylist,0,len(mylist)-1)
-print(mylist)
+        pivotindex=partition2(mylist1,start,end)
+        quicksort2(mylist1,start,pivotindex-1)
+        quicksort2(mylist1,pivotindex+1,end)
+mylist1=[5,6,2,3,10,4,45,25,35]
+quicksort2(mylist,0,len(mylist1)-1)
+print(mylist1)
