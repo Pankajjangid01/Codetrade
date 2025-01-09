@@ -12,19 +12,26 @@ def sortbubble(fruits):
         for number in range(item+1,len(fruits)):
             if fruits[item]>fruits[number]:
                 fruits[item],fruits[number]=fruits[number],fruits[item]
+        if item>0 and fruits[item]==fruits[item-1]:
+            fruits[item]=None
 fruits=[1,6,2,1,9,3,7,5]
 fruits=list(set(fruits))
 sortbubble(fruits)
-print(fruits)
+fruits=[num for num in fruits if num is not None]
+print("sorting in the function",fruits)
 
 
 # sorting the list after duplicate removal 
 mylist1=[5,2,8,6,1,2,4,3]
-mylist1=list(set(mylist1))
+# mylist1=list(set(mylist1))
 for number in range(len(mylist1)):
     for index in range(number+1,len(mylist1)):
-        if mylist1[number]>mylist1[index]:
+        if mylist1[number] > mylist1[index]:
             mylist1[number],mylist1[index]=mylist1[index],mylist1[number]
+        
+    if number>0 and mylist1[number]==mylist1[number-1]:
+        mylist1[number]=None
+mylist1=[num for num in mylist1 if num is not None]
 print("My list after removing duplicates",mylist1)
 
 
