@@ -11,10 +11,6 @@ def linear_search(searchlist,key):
         if(searchlist[number]==key):
             return number
     return -1
-# searchlist=[1,2,3,4,5] 
-# key=3
-# print("Key is found at:",linear_search(searchlist,key))
-
 
 # Linear search using functions
 
