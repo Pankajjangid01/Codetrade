@@ -12,7 +12,7 @@ def sortbubble(fruits):
         for number in range(item+1,len(fruits)):
             if fruits[item]>fruits[number]:
                 fruits[item],fruits[number]=fruits[number],fruits[item]
-fruits=[1,6,2,1,9,3,7]
+fruits=[1,6,2,1,9,3,7,5]
 fruits=list(set(fruits))
 sortbubble(fruits)
 print(fruits)
