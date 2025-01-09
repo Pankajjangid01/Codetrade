@@ -4,8 +4,11 @@ Call by Refrence: In python when we pass the mutable variables such as list,dict
 """
 
 def refrencedfunction(mylist):
-    mylist.append('gurgoan')
+    mylist.append('gurgoan')  #appending new element in the list inside the function
+
 mylist=['jaipur','delhi','noida','gujrat','Indore']
 print("My list before function call",mylist)
-refrencedfunction(mylist)
-print("My list After function call",mylist)
+refrencedfunction(mylist)  #function called 
+print("My list After function call",mylist)  #Changes on list inside the function also reflect outside the function
+
+

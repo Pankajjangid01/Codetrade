@@ -8,31 +8,17 @@ Time complexity:
 
 # Bubble sort using function
 def sortbubble(fruits):
-    for item in range(len(fruits)):
-        for number in range(item+1,len(fruits)):
-            if fruits[item]>fruits[number]:
-                fruits[item],fruits[number]=fruits[number],fruits[item]
-        if item>0 and fruits[item]==fruits[item-1]:
-            fruits[item]=None
+    for item in range(len(fruits)):                                     #iterate over the list from 0 to the lenght of list 
+        for number in range(item+1,len(fruits)):                        #iterate over the list from item+1 i.e 1 to lenght of the list 
+            if fruits[item]>fruits[number]:                             #check if the value of item is greater than fruit or not 
+                fruits[item],fruits[number]=fruits[number],fruits[item] #if it is grater than swap them 
+        if item>2 and fruits[item]==fruits[item-1]:                     #check if item value>0 and value of fruit is equal to previous fruit
+            del fruits[item]                                           #Mark it None if equal
 fruits=[1,6,2,1,9,3,7,5]
-fruits=list(set(fruits))
-sortbubble(fruits)
-fruits=[num for num in fruits if num is not None]  #used list comprehension syntax to loop the list
+sortbubble(fruits)                                           #calling the bubble sort function
 print("sorting in the function",fruits)
-
-
-# sorting the list after duplicate removal 
-mylist1=[5,2,8,6,1,2,4,3]
-# mylist1=list(set(mylist1))
-for number in range(len(mylist1)):
-    for index in range(number+1,len(mylist1)):
-        if mylist1[number] > mylist1[index]:
-            mylist1[number],mylist1[index]=mylist1[index],mylist1[number]
-        
-    if number>0 and mylist1[number]==mylist1[number-1]:
-        mylist1[number]=None
-mylist1=[num for num in mylist1 if num is not None]
-print("My list after removing duplicates",mylist1)
+import pdb
+pdb.set_trace()
 
 
 ########################################################################################################
@@ -49,30 +35,26 @@ def compare(char1,char2):
 def sortlist(mylist,size):
     #using bubble sort 
     temp=""
-    for index in range(size-1):
-        for character in range (index+1,size):
-            if compare(mylist[index],mylist[character])<0:
+    for index in range(size-1):  #outer loop which start from 0 to size-1 of the list 
+        for character in range (index+1,size):  #inner loop which start from index+1 i.e 1 to size of the list 
+            if compare(mylist[index],mylist[character])<0:   #called the compare function passing inner loop and outer loop index value from list 
                 """
                 1.compairing each string in the compare function, it will return value 1,-1 or 0
                 2.if the value is less then zero then swapping will be done 
                 3.The sorted list will be in ascending order  
                 4.If we want to get the list in descending order then we have to change the condition greater than 0 i.e compare()>0
                 """
-                temp=mylist[character]
-                mylist[character]=mylist[index]
-                mylist[index]=temp
-    for number in range(0,size-2):   
-        if mylist[number]==mylist[number+1]:
-            del mylist[number]
+                temp=mylist[character]          #copy the inner loop list value to temporary vairable 
+                mylist[character]=mylist[index]   #copy the outer loop list index value to inner loop value 
+                mylist[index]=temp               #again the temporary variable value to the outer loop index 
+    for number in range(0,size-2):      #loop to iterate from 0 to seize-2 beacuse list should not go out of the index
+        if mylist[number]==mylist[number+1]:  #checking the number is equal to the next number or not
+            del mylist[number]    #if the number are equal delete the the one number
+
 mylist=["Pankaj","Pawan","Ajay","Shashank","Ajay","Chinu"]
 mylist=list(set(mylist))
-n=len(mylist)
-sortlist(mylist,n)
+n=len(mylist)   #lenght of the list 
+sortlist(mylist,n)  #called sortlist function by passing mylist and n  as the parametes
 print("sorting strings after duplicate removal",mylist)
 
-
-# examples of call by refrence and varibles with example
-# for loop inside the for loop to remove duplicates 
-# doctype comments
-# binary search and linear search using function
 

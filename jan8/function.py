@@ -14,21 +14,21 @@ printname("Pankaj")
 
 def multiple(name,email,age):   #passing multiple arguments 
     print(f"my name is {name} and i am {age} old.\nMy email id is {email}")
-multiple("pankaj","pankajjangir1034@gmail.com",22)
+multiple("pankaj","pankajjangir1034@gmail.com",22)   #passed multiple parameters and called the function
 
 # we can also pass arguments with key=value syntax
 def keyvalue(child2,child3,child1):
     print(f"child1 is {child1}\nchild2 is {child2}\nchild3 is {child3}")
-keyvalue(child3="raman",child1="aman",child2="baman")
+keyvalue(child3="raman",child1="aman",child2="baman")  #passed key-value arguments and the function is called
 
 
 # default parameter 
-def countryname(country="India"):
-    print(f"country name={country}")
+def countryname(country="India"):   #default parameter if the value is not passed in the function call 
+    print(f"country name={country}")   
 
 countryname("USA")
 countryname("UK")
-countryname()
+countryname()  #value is not passed in the function  called 
 countryname("Australia")
 countryname("Sweden")
 
