@@ -5,31 +5,37 @@
     2.Average case: O(log n)
     3.Worst case: O(log n)
 """
-def sortbubble(mylist):                                                   #used bubble sort to sort the list 
-    for item in range(len(mylist)):                                       #iterate over the list from 0 to the lenght of list 
-        for number in range(item+1,len(mylist)):                          #iterate over the list from item+1 i.e 1 to lenght of the list 
-            if mylist[item]>mylist[number]:                               #check if the value of item is greater than number or not 
-                mylist[item],mylist[number]=mylist[number],mylist[item]   #if it is grater than swap them 
+def sortbubble(mylist, size):
+    # Bubble Sort used to sort the unsorted list 
+    for item in range(size):
 
+        for number in range(size - item - 1):
+            if mylist[number] > mylist[number + 1]:
+                mylist[number], mylist[number + 1] = mylist[number + 1], mylist[number]
+            
+            if item > 0 and mylist[item] == mylist[item-1]:  #check 1st iteration value should >0 and value of item and item-1 value is equal or not 
+                del mylist[item]  
+                size -= 1  # every time decrease lenght of list when element is removed
 
-"""Binary search to search the element """
-def binary_search(mylist,brand):  # mylist,brand are the parameters 
-    start=0                       #taken a pointer start at 0 index
-    end=len(mylist)-1             #taken a pointer end at last  
-    mid=0                         # initialized a varible mid with 0
-    while start<=end:             #loop runs while start and end cross each other 
-        mid=(start+end)//2        # We have to find the mid of the list and then compare our element to the mid element
-        if mylist[mid]==brand:    #checking the mid value to the search value
-            return mid            # if search value and mid value are equal than return mid 
-        elif mylist[mid]>brand:   # checking element is smaller then mid element or not 
-            end=mid-1             # searching in the left part
+def binary_search(mylist,brand):   
+    start = 0                       
+    end = len(mylist) - 1               
+    mid = 0                         
+    while start <= end:  # loop runs while start and end cross each other 
+        mid=( start + end ) // 2        
+        if mylist[mid] == brand:  # checking the mid value to the search value
+            return mid            
+        elif mylist[mid] > brand:  # checking element is smaller then mid element or not and search in the left part
+            end = mid - 1             
         else:
-            start=mid+1           #if element is larger then mid element then we search in the right part
+            start = mid + 1  # if element is larger then mid element then we search in the right part
     return -1
-mylist=[2,4,1,1,2,9,0,2,3]        #created a list of name mylist
-mylist=list(set(mylist))          #convert the list into set to remove duplicates and then again convert it into list
-# print("My list after removing duplicates",mylist)
-sortbubble(mylist)                #calling bubble sort function
-key=2                            
-index=binary_search(mylist,key)
-print(f"{key} if found at:",index)
+
+mylist=[2,4,1,1,2,9,0,2,3]    
+size=len(mylist)
+
+sortbubble(mylist,size)
+key = 2  # search key                           
+
+index = binary_search(mylist, key)
+print(f"{key} if found at:", index)

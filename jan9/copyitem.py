@@ -1,17 +1,17 @@
-mydict={
+mydict = {
     "id":1,
     "name":"pankaj",
     "email":"pankajjangir1034@gmail.com",
     "password":"Pankaj@123"
 }
-copied=mydict.copy()      #copy() method to copy the dictionary
+copied = mydict.copy()  # copy() method to copy the dictionary
 print(copied)             
 
-copied1=dict(mydict)      #dict() constructor used to copy the dictionary 
+copied1 = dict(mydict)  # dict() constructor used to copy the dictionary 
 print(copied1)
 
 # nested dictionary
-maindict={
+maindict = {
     "dict1":{
         "name":"pankaj",
         "year":2003
@@ -25,10 +25,10 @@ maindict={
         "year":2002
     }
 }
-print(maindict["dict2"]["name"])  #accessing nested dictionay 
+print(maindict["dict2"]["name"])  # accessing nested dictionay 
 
 # looping through a dictionary, we can use items() method
 for item,initem in maindict.items():    
     print(item)
     for newitem in initem:
-        print(newitem+" ",initem[newitem])
+        print(newitem + " ", initem[newitem])

@@ -23,8 +23,8 @@ print(None == [])
 """
 
 # operator keywords and,or,not,in,is
-a=True
-b=False
-print(a and b) # and- return true of both oprerand are ture
-print(a or b) # or- return true is atleat one operand is true 
-print(not b) # not- retrun true if expression is false
+a = True
+b = False
+print( a and b )  # and- return true of both oprerand are ture
+print( a or b )  # or- return true is atleat one operand is true 
+print( not b )  # not- retrun true if expression is false
