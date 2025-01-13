@@ -36,41 +36,48 @@ import pdb
 pdb.set_trace()
 
 
-# Sorting strings 
-def compare(char1,char2):
+# Sorting strings
+def compare(char1, char2):
     """
-    if first character of char1 is greater than first character of char2 then it will return 1
-    if first character of char2 is greater than first character of char1 then it will return -1
+    If the first character of char1 is greater than the first character of char2, it will return 1.
+    If the first character of char2 is greater than the first character of char1, it will return -1.
     """
-    return ( (char1<char2) - (char1>char2) )   
+    return ( (char1 < char2) - (char1 > char2) )
 
-def sortlist(mylist,size):
+def compare(char1, char2):
     """
-    1.compairing each string in the compare function, it will return value 1,-1 or 0
-    2.if the value is less then zero then swapping will be done and The sorted list will be in ascending order  
-    3.If we want to get the list in descending order then we have to change the condition greater than 0 i.e compare()>0
+    If the first character of char1 is greater than the first character of char2, it will return 1.
+    If the first character of char2 is greater than the first character of char1, it will return -1.
     """
-    #using bubble sort 
+    return (char1 > char2) - (char1 < char2)
+
+def sortlist(mylist, size):
+    """
+    Sorting using bubble sort and removing duplicates during the sorting process.
+    """
     temp = " "
+    index = 0
 
+    while index < size - 1:
+        character = index + 1
+        while character < size:
+            # Compare the elements
+            if compare(mylist[index], mylist[character]) < 0:
+                temp = mylist[character]
+                mylist[character] = mylist[index]
+                mylist[index] = temp
+            # Remove duplicates
+            elif mylist[index] == mylist[character]:
+                del mylist[character]
+                size -= 1  # Decrease the size of the list
+                continue  # Recheck the current position
+            character += 1
+        index += 1
 
-    for index in range(size-1):  
-        for character in range (index+1,size):  
-            if compare( mylist[index],  mylist[character] ) < 0:  # Called the compare function passing inner loop and outer loop index value from list 
-                temp = mylist[character]         
-                mylist[character] = mylist[index]   
-                mylist[index] = temp 
-            
-            if index > 0 and fruits[index] == fruits[size-index-1]:
-                import pdb
-                pdb.set_trace()
-                del fruits[index]  
-                size -= 1  # every time decrease lenght of list when element is removed
+    return mylist
 
-    return print("sorting strings after duplicate removal", mylist)
-
-mylist = ["Pankaj", "Pawan", "Ajay", "Shashank", "Ajay", "Chinu"]
-n = len(mylist)   
-sortlist(mylist,n)  
-print(mylist)
-
+# Test the function
+mylist = ["Pankaj", "Pawan", "Ajay", "Shashank", "Ajay", "Chinu", "Chinu", "Rohit", "Ajay", "Vikas"]
+n = len(mylist)
+sorted_unique_list = sortlist(mylist, n)
+print("Sorting strings after duplicate removal:", sorted_unique_list)
