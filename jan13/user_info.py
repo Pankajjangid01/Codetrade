@@ -21,9 +21,9 @@ rows = []
 def validate_password(password):
     """Checks is the password matches the regex pattern, if it not matches then show the error message """
     # Regex pattern: 
-    # ^ = start, (?=.[a-z]) = at least one lowercase, (?=.[A-Z]) = at least one uppercase,
-    # (?=.[!@#$%^&()-_=+[]{}|;:',.<>?/`~]) = at least one special character,
-    # (?=.*\d) = at least one digit, [^\s] = no spaces, .{8,} = minimum 8 characters.
+    # ^ = start, (?=.*[a-z]) = at least one lowercase, (?=.*[A-Z]) = at least one uppercase,
+    # (?=.*[!@#$%^&*-) = at least one special character,
+    # (?=.*[0-9]) = at least one digit, [^\s] = no spaces, .{8,} = minimum 8 characters.
     # import pdb
     # pdb.set_trace()
     pattern = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$"
@@ -42,9 +42,9 @@ def open_file(name,branch,roll_number,password):
     """
     try:
         with open("User.csv", "a+") as file:
-    # Write and read from the text file
+            # Write and read from the text file
             file.seek(0)  # Move to the start of the file
-            content = file.read()
+            content = file.read()  # read the cotent of file whether it is empty or not 
         
             # Check if the file is empty
             if not content:
@@ -59,6 +59,8 @@ def open_file(name,branch,roll_number,password):
 
     except Exception as exe:  # handle error when error occurs during file opening 
         print("Error in opening file:",str(exe))
+
+
 
 
 def main():
