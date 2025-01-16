@@ -47,6 +47,7 @@ class SignupUser:
 
         except Exception as exe:  # handle error when error occurs during file opening 
             print(f"Error in opening file:{str(exe)}")
+
 class LoginUser:
     """
         Description: Login Class that takes the username and password and checks if both are correct.
@@ -119,20 +120,21 @@ class StudentTest:
                     question = question_lines[question_index].split(":")[1].strip()  # Extract the question text         
                     answer = answers_lines[question_index].split(',')[1:]  # extract the answers and split them on the basis of ','
                     answer_list=[]  # created a new list 
-                    
+
                     right_answer = None  # mark the right answer None initially when we havent taken input from user
                     for element in range(len(answer)):
                         if '[' in answer[element]:
                             right_answer = chr(element + 97)  # find the correct answer and store it in the righ answer
-                        answer_list.extend(answer[element].replace('['," ").replace(']'," ").split())  # replace the '[' and ']' with empty " "
+                        answer_list.extend(answer[element].replace('['," ").replace(']'," ").split(','))  # replace the '[' and ']' with empty " "
 
                     print(f"Ques {question_index+1}: {question}")
                     for index in range(len(answer_list)):
-                        print(f"{chr(97+index)}){answer_list[index]}")
+                        print(f"{chr(97+index)}:{answer_list[index]}")
                     
                     user_answer = None  # set the user answer None and get the answer from the user then 
                     while user_answer not in ['a','b','c','d']:
                         user_answer = input("Enter your answer (a/b/c/d): ").lower()
+                        print("Invalid option, please choose from(a/b/c/d)")
 
                     if user_answer == right_answer:
                         self.score += 1

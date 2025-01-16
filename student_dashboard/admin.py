@@ -67,8 +67,8 @@ class AdminAccess:
 
             else:
                 print("Invalid choice. Please try again.")
-        except Exception as e:
-            print(f"Error during admin access: {str(e)}")
+        except Exception as exe:
+            print(f"Error during admin access: {str(exe)}")
 
 class MainApplication:
     """
