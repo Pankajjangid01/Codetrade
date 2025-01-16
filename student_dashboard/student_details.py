@@ -45,8 +45,8 @@ class SignupUser:
                 file.write(f"{self.username},{password},{self.admin}\n")
                 print("User added successfully")
 
-        except Exception as exe:  # handle error when error occurs during file opening 
-            print(f"Error in opening file:{str(exe)}")
+        except IOError:  # handle error when error occurs during file opening 
+            print(f"Error in opening file:{str(IOError)}")
 
 class LoginUser:
     """
@@ -81,8 +81,9 @@ class LoginUser:
                     print(f"Attempt lefts:{max_attempts-attempts}")
 
             except IOError:
-                print(f"Something went wrong, failed to open user.csv file... :{IOError}")
+                print(f"Something went wrong, failed to open user.csv file... :{str(IOError)}")
                 return False, 'Error', 'Error', 'Error'
+            
 
         # After maximum attempts are exhausted, return an error message
         print("Maximum attempts exceeded. Please try again later.")
@@ -162,9 +163,9 @@ class StudentTest:
         """
         try:
             with open("results.csv", 'a', newline='') as result_file:
-                if result_file.tell() == 0:
+                if result_file.tell() == 0:  # checks if it is header or not if it is at 0 then write the header 
                     result_file.write("Username,Password,Score,Percetage\n")
-                result_file.write(f"{self.username},{self.password}, {self.score}, {percentage:.2f}%\n")
+                result_file.write(f"{self.username},{self.password}, {self.score}, {percentage:.2f}%\n")  # store the username,password,score,percentage in result csv file
 
             print("Result saved successfully!")
 
