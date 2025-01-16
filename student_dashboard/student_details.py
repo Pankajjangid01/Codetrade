@@ -1,5 +1,5 @@
 import re 
-class Signup_User:
+class SignupUser:
     """Class to create the function to signup and store their information in the user_info csv file """
     def __init__(self):
         try:
@@ -8,8 +8,6 @@ class Signup_User:
             while True:
                 try:
                     password = input("Enter Password: ")
-                    # import pdb
-                    # pdb.set_trace()
                     self.validate_password(password)
                     self.open_file(password)
                     break
@@ -24,7 +22,6 @@ class Signup_User:
             Desctiption:Checks is the password matches the regex pattern, if it not matches then show the error message
         """
         pattern = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$"
-        # try:
         if re.match(pattern, password):
             return True
         raise Exception("Password must be at least 8 characters long, contain at least one lowercase letter, one uppercase letter, one special character, one digit, and must not have spaces.")
@@ -36,7 +33,7 @@ class Signup_User:
             check if the content exists in the file or not, if not then append header first after that append data to the file and read the content of file
         """
         try:
-            with open("User.csv", "a+") as file:
+            with open("user.csv", "a+") as file:
                 # Write and read from the text file
                 file.seek(0)  # Move to the start of the file
                 content = file.read()  # read the cotent of file whether it is empty or not 
@@ -47,17 +44,12 @@ class Signup_User:
 
                 # Append the user data
                 file.write(f"{self.username},{password},{self.admin}\n")
-        
-                # Move back to the start and display the file content
-                file.seek(0)
-                print("\nFile Content:",file.read())
 
         except Exception as exe:  # handle error when error occurs during file opening 
-            print("Error in opening file:",str(exe))
+            print(f"Error in opening file:{str(exe)}")
 
-# signupobj=Signup_User()  # creating the Signup class object
 
-class Login_User:
+class LoginUser:
     """
         Description:Login Class which take the username and password and match if both username and password correct
     """
@@ -68,24 +60,33 @@ class Login_User:
         """
         self.username = input("Enter your User Name: ")
         self.password = input("Enter your Password: ")
-        self.check_user_info()
+
 
     def check_user_info(self):
+        """
+            Description: Function that opens the user CSV file, splits the data on the basis of commas,
+            and stores them in a list. It then checks the username and password entered by the user against
+            the stored data in the file.
+        """
         try:
-            user_info = open("User.csv",'r')  # opens the user Information file containg username and password
-            user_data = user_info.readlines()[1:]  # read the data of user from the file 
-            user_data=[user_data[serial_number].split(',') for serial_number in range(len(user_data))]  # Store the userdata in the list  to iterate and check uesnrame and password
+            with open("user.csv", 'r') as user_info:  # Open the user information file containing username and password
+                user_data = user_info.readlines()[1:]  # Read the data of users from the file, skipping the header
+                
+                # Split the user data into a list of lists, where each list contains [username, password, isAdmin]
+                user_data = [line.split(',') for line in user_data]
+                
+                # Iterate through each line of the data to check the username and password
+                for info in user_data:
+                    if info[0] == self.username and info[1] == self.password:  # Matching the username and password
+                        print(f"Login Successful as {self.username}")
+                        return True, info[2], self.username, self.password  # Return success if credentials match
+                
+                # If we reach here, no match was found, print invalid credentials message once
+                # print("Invalid credentials")
+                return False, 'False', 'False', "Invalid"  # Return failure if no match is found
+        except IOError:
+            print(f"Something went wrong, failed to open user.csv file... :{IOError}")
+            return False, 'False', 'False', "Error"
 
 
-            for info in range(len(user_data)):
-                # import pdb
-                # pdb.set_trace()
-                if user_data[info][0]==self.username and user_data[info][1]==self.password:  # matching the user input details with the details stored in file if it match then login.
-                    print("Login Successfull")
-                    return True,user_data[info][3],self.username,self.password  # return the csv file content i.e true for user login, isAdmin, username, password 
-            return False,'False','False','False'  # return false if user is entering invalid credentials 
-        except Exception as exe:
-            print("User Failed to login")
-            
-loginobj=Login_User()  # creating the Login class object
         
