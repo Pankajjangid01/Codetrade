@@ -26,7 +26,6 @@ class SignupUser:
             return True
         raise Exception("Password must be at least 8 characters long, contain at least one lowercase letter, one uppercase letter, one special character, one digit, and must not have spaces.")
 
-
     def open_file(self,password):
         """
             Description:opening the file in the read and write mode using a+ mode at the same time to append data in the file and read the file 
@@ -44,49 +43,131 @@ class SignupUser:
 
                 # Append the user data
                 file.write(f"{self.username},{password},{self.admin}\n")
+                print("User added successfully")
 
         except Exception as exe:  # handle error when error occurs during file opening 
             print(f"Error in opening file:{str(exe)}")
-
-
 class LoginUser:
     """
-        Description:Login Class which take the username and password and match if both username and password correct
+        Description: Login Class that takes the username and password and checks if both are correct.
     """
-
-    def __init__(self):
-        """
-            Description:Constructor that takes the username and password and pass username and password to the check_user_info method
-        """
-        self.username = input("Enter your User Name: ")
-        self.password = input("Enter your Password: ")
-
 
     def check_user_info(self):
         """
-            Description: Function that opens the user CSV file, splits the data on the basis of commas,
-            and stores them in a list. It then checks the username and password entered by the user against
-            the stored data in the file.
+            Description: Function that checks if the entered username and password match any entry in a CSV file.
+        """
+        max_attempts = 3  # Maximum number of login attempts
+        attempts = 0
+
+        while attempts < max_attempts:
+            self.username = input("Enter username: ")
+            self.password = input("Enter password: ")
+            try:
+                with open("user.csv", 'r') as user_info:  # Open the user information file containing username and password
+                    user_data = user_info.readlines()[1:]  # Read user data, skipping the header
+
+                    # Split the user data into a list of lists, where each list contains [username, password, isAdmin]
+                    user_data = [line.strip().split(',') for line in user_data]
+
+                    # Check if the entered username and password match any of the records
+                    for info in user_data:
+                        if info[0] == self.username and info[1] == self.password:  # Successful login
+                            print(f"Login Successful as {self.username}")
+                            return True, info[2], self.username, self.password  # Return success with role information
+                        
+                    print("Invalid username or password. Try again.")
+                    attempts += 1
+                    print(f"Attempt lefts:{max_attempts-attempts}")
+
+            except IOError:
+                print(f"Something went wrong, failed to open user.csv file... :{IOError}")
+                return False, 'Error', 'Error', 'Error'
+
+        # After maximum attempts are exhausted, return an error message
+        print("Maximum attempts exceeded. Please try again later.")
+        return False, 'False', 'False', 'False'
+    
+class StudentTest:
+    """
+        Desciption: Student class that handle the take-test student functionality    
+    """
+    def __init__(self, username, password):
+        """
+            Description: Constructor to set the username and password and initialize score and total questions
+        """
+        self.username = username
+        self.password = password
+        self.score = 0
+        self.total_questions=0
+    
+    def start_test(self):
+        """
+            Description: Method to start the test
+        """
+        print("Test Started\n")
+        try:
+            with open('questions.csv','r') as question_file, open('answers.csv','r') as answers_file:
+                question_lines = question_file.readlines()[1:]
+                answers_lines = answers_file.readlines()[1:]
+
+                self.total_questions = len(question_lines)  # set the totol number of questions 
+
+                if len(question_lines) != len(answers_lines):
+                    print("Number of questions and Number of Answers are not equal")
+                    return
+                for question_index in range(len(question_lines)):
+                    question = question_lines[question_index].split(":")[1].strip()  # Extract the question text         
+                    answer = answers_lines[question_index].split(',')[1:]  # extract the answers and split them on the basis of ','
+                    answer_list=[]  # created a new list 
+                    
+                    right_answer = None  # mark the right answer None initially when we havent taken input from user
+                    for element in range(len(answer)):
+                        if '[' in answer[element]:
+                            right_answer = chr(element + 97)  # find the correct answer and store it in the righ answer
+                        answer_list.extend(answer[element].replace('['," ").replace(']'," ").split())  # replace the '[' and ']' with empty " "
+
+                    print(f"Ques {question_index+1}: {question}")
+                    for index in range(len(answer_list)):
+                        print(f"{chr(97+index)}){answer_list[index]}")
+                    
+                    user_answer = None  # set the user answer None and get the answer from the user then 
+                    while user_answer not in ['a','b','c','d']:
+                        user_answer = input("Enter your answer (a/b/c/d): ").lower()
+
+                    if user_answer == right_answer:
+                        self.score += 1
+                      
+                self.display_result()
+
+        except IOError:
+            print(f"Something went wrong while opening Questions or Answers file {str(IOError)}")
+
+    def display_result(self):
+        """
+        Description: Display the result to the student.
         """
         try:
-            with open("user.csv", 'r') as user_info:  # Open the user information file containing username and password
-                user_data = user_info.readlines()[1:]  # Read the data of users from the file, skipping the header
-                
-                # Split the user data into a list of lists, where each list contains [username, password, isAdmin]
-                user_data = [line.split(',') for line in user_data]
-                
-                # Iterate through each line of the data to check the username and password
-                for info in user_data:
-                    if info[0] == self.username and info[1] == self.password:  # Matching the username and password
-                        print(f"Login Successful as {self.username}")
-                        return True, info[2], self.username, self.password  # Return success if credentials match
-                
-                # If we reach here, no match was found, print invalid credentials message once
-                # print("Invalid credentials")
-                return False, 'False', 'False', "Invalid"  # Return failure if no match is found
+            percentage = (self.score / self.total_questions) * 100 if self.total_questions else 0
+            print(f"\nYour result: {percentage:.2f}%")
+            self.store_result(percentage)
+
+        except ValueError:
+            print(f"Error in displaying Result: {str(ValueError)}")
+        
+    def store_result(self, percentage):
+        """
+        Description: Store the student's result in a CSV file.
+        """
+        try:
+            with open("results.csv", 'a', newline='') as result_file:
+                if result_file.tell() == 0:
+                    result_file.write("Username,Password,Score,Percetage\n")
+                result_file.write(f"{self.username},{self.password}, {self.score}, {percentage:.2f}%\n")
+
+            print("Result saved successfully!")
+
         except IOError:
-            print(f"Something went wrong, failed to open user.csv file... :{IOError}")
-            return False, 'False', 'False', "Error"
+            print(f"Error while storing the result: {str(IOError)}")
 
 
         

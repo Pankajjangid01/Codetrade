@@ -1,3 +1,5 @@
 User-Name,Password,isAdmin
 Pankaj,Pankaj@123,True
 Ajay,Ajay@1234,False
+Pankaj,Pankaj@345,False
+Nitesh,Nitesh@1234,True
