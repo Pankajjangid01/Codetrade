@@ -29,8 +29,8 @@ class Whether:
             print(f"Whether Details of {self.city}:\nHumidity: {self.humidity}, Temprature: {self.temperature}, Pressure: {self.pressure}, Wind Speed:{self.wind_speed}")  # printing the extracted details 
             self.store_whether_details()  # call the store whether method to store whether details in csv file 
 
-        except requests.exceptions.HTTPError as errh:
-            print(f"Error fetching data: {str(errh)}")
+        except requests.exceptions.HTTPError:
+            print(f"Error fetching data:")
 
     def store_whether_details(self):
         """
@@ -50,3 +50,18 @@ class Whether:
 
 
 Whether().find_whether()  # callling the find_whether method 
+
+# pankaj-kumar@pankaj-kumar-HP-Pavilion-Gaming-Laptop-15-ec2xxx:~/Codetrade/api_integration$ /usr/bin/python3 /home/pankaj-kumar/Codetrade/api_integration/whether_details.py
+# Enter the city name: cdgd
+# Fetching data...
+# Traceback (most recent call last):
+#   File "/home/pankaj-kumar/Codetrade/api_integration/whether_details.py", line 52, in <module>
+#     Whether().find_whether()  # callling the find_whether method 
+#     ^^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/home/pankaj-kumar/Codetrade/api_integration/whether_details.py", line 25, in find_whether
+#     self.humidity = self.parse_data['main']['humidity']  # extract the humitdity
+#                     ~~~~~~~~~~~~~~~^^^^^^^^
+# KeyError: 'main'
+
+
+# here is the response of api-->>{"coord":{"lon":75.8167,"lat":26.9167},"weather":[{"id":721,"main":"Haze","description":"haze","icon":"50d"}],"base":"stations","main":{"temp":288.77,"feels_like":288.14,"temp_min":288.77,"temp_max":288.77,"pressure":1019,"humidity":67,"sea_level":1019,"grnd_level":971},"visibility":1700,"wind":{"speed":2.57,"deg":210},"clouds":{"all":0},"dt":1737102423,"sys":{"type":1,"id":9170,"country":"IN","sunrise":1737078412,"sunset":1737116776},"timezone":19800,"id":1269515,"name":"Jaipur","cod":200}
