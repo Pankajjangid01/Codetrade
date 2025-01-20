@@ -8,6 +8,14 @@ def get_common_element(list1,list2):
     list3 = [item for item in list1 if item in list2]
     return list3
 
-list1 = [1,2,3,4,5,6,7,8]
-list2 = [4,5,6,7,8,9,10]
-print(get_common_element(list1,list2))
+print("Enter a list 1, separated by spaces:")
+user_input_list1 = input()
+list1 = list(map(int, user_input_list1.split()))
+print("List 1 is:",list1)  # printing list 1
+
+print("Enter a list 2, separated by spaces:")
+user_input_list2 = input()
+list2 = list(map(int, user_input_list2.split()))
+print("List 2 is:",list2)  # printing list 2
+
+print(get_common_element(list1,list2))  #calling the function to find the common elements in both list

@@ -1,15 +1,15 @@
-"""
-    Description:x=(1,2,3,4,5), y=(4,5,6,7). Combine these two tuples in a single tuple ignoring the
-                common elements.
-"""
+def get_even_element(my_list):
+    """Function to get only the even numbers of the list"""
+    my_even_list = [element for element in my_list if element % 2 == 0]
+    return my_even_list
 
-def combine_tuple(tuple1,tuple2):
-    """function to merge tuples ignoring duplicates """
-    for number in tuple2:
-        if number not in tuple1:  #check is tuple 2 element is present in tuple 1 or not 
-            tuple1.append(number)  # append the element of tuple 2 to tuple1 if not present 
-    return tuple(tuple1)
+# Ask the user for input
+print("Enter a list of numbers from 1 to 20, separated by spaces:")
+user_input = input()
+my_list = list(map(int, user_input.split()))
 
-tuple1 = (1,2,3,4,5)
-tuple2 = (4,5,6,7)
-print(combine_tuple(list(tuple1),list(tuple2)))
+# Validate the input
+if all(1 <= num <= 20 for num in my_list):
+    print("Even elements from the list:", get_even_element(my_list))
+else:
+    print("Please enter numbers only between 1 and 20.")

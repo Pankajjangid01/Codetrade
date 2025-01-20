@@ -21,6 +21,12 @@ def sortlist(shuffled_list, size):
     print("Sorted list After Duplicate removals:", shuffled_list)
 
 
-shuffled_list = [1,5,2,3,8,4,6,7,9,10]
-size=len(shuffled_list)
-sortlist(shuffled_list, size)  # Calling the bubble sort function
+print("Enter a list, separated by spaces:")
+user_input = input()
+shuffled_list = list(map(int, user_input.split()))
+# Validate the input
+if all(1 <= num <= 10 for num in shuffled_list):
+    size=len(shuffled_list)
+    print("Even elements from the list:", sortlist(shuffled_list))
+else:
+    print("Please enter numbers only between 1 and 10.")

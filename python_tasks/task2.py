@@ -7,5 +7,9 @@ def get_even_element(my_list):
     my_even_list = [element for element in my_list if element % 2 == 0 ]
     return my_even_list
 
-my_list = [1,4,5,6,3,2,7,9,8,10,14,15,12,17,13,18,20,19,16,11]
-print(get_even_element(my_list))
+print("Enter a list, separated by spaces:")
+user_input = input()
+my_list = list(map(int, user_input.split()))
+
+print("Given list is:",my_list)
+print("Even  numbers list:",get_even_element(my_list))
