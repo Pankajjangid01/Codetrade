@@ -27,16 +27,18 @@ class Whether:
             self.parse_data = eval(self.api_response)  # parse the data 
             self.country = self.parse_data['sys']['country']
             if self.country == 'IN':
-                self.humidity = self.parse_data['main']['humidity']  # extract the humitdity
-                self.temperature = self.parse_data['main']['temp']  # extract the temperature
-                self.pressure = self.parse_data['main']['pressure']  # extract the pressure
-                self.wind_speed = self.parse_data['wind']['speed']  # extract the wind speed
+                main_data = self.parse_data.get('main', None)
+                wind_data = self.parse_data.get('wind', None)
+                self.humidity = main_data.get('humidity', main_data.get('Humidity', 'N/A'))  # Check both lowercase and capitalized
+                self.temperature = main_data.get('temp', 'N/A')
+                self.pressure = main_data.get('pressure', 'N/A')
+                self.wind_speed = wind_data.get('speed', 'N/A')
                 self.store_whether_details()  # call the store whether method to store whether details in csv file
                 return f"Whether Details of {self.city}:\nHumidity: {self.humidity}\nTemprature: {self.temperature}\nPressure: {self.pressure}\nWind Speed:{self.wind_speed}"  # printing the extracted details
             else:
                 return f"Please Enter city/state of India"
         except KeyError as key:
-            return f"Error fetching data:{key}\n{self.api_response}"
+            return f"Error fetching data:{key}"
 
     def store_whether_details(self):
         """
@@ -50,6 +52,6 @@ class Whether:
                 whether_file.write(f"{self.city.lower()},{self.humidity},{self.temperature},{self.pressure},{self.wind_speed}\n")  #write details in each row 
                 print("Whether Details saved successfully...")
         except IOError:
-            return f"Error in saving the Whether details: {str(IOError)}"
+            return f"Error in saving the Whether details: {IOError}"
         
 print(Whether().find_whether())  # callling the find_whether method

@@ -50,19 +50,21 @@ class SignupUser:
 
 class LoginUser:
     """
-        Description: Login Class that takes the username and password and checks if both are correct.
+    Description: Login Class that takes the username and checks if the username exists in the file,
+    then asks for the password to validate the login.
     """
 
     def check_user_info(self):
         """
-            Description: Function that checks if the entered username and password match any entry in a CSV file.
+        Description: Function that checks if the entered username exists,
+        then validates the password against the username.
         """
         max_attempts = 3  # Maximum number of login attempts
         attempts = 0
 
         while attempts < max_attempts:
-            self.username = input("Enter username: ")
-            self.password = input("Enter password: ")
+            self.username = input("Enter username: ").strip()
+            
             try:
                 with open("user.csv", 'r') as user_info:  # Open the user information file containing username and password
                     user_data = user_info.readlines()[1:]  # Read user data, skipping the header
@@ -70,24 +72,34 @@ class LoginUser:
                     # Split the user data into a list of lists, where each list contains [username, password, isAdmin]
                     user_data = [line.strip().split(',') for line in user_data]
 
-                    # Check if the entered username and password match any of the records
-                    for info in user_data:
-                        if info[0] == self.username and info[1] == self.password:  # Successful login
+                    # Check if the username exists
+                    user_record = next((info for info in user_data if info[0] == self.username), None)  # checks the current user info if not match then move to the next user in the list 
+                    
+                    if not user_record:
+                        print("Username not found. Try again.")
+                        attempts += 1
+                        print(f"Attempts left: {max_attempts - attempts}")
+                        continue
+
+                    # If username exists, ask for the password
+                    for _ in range(max_attempts):
+                        self.password = input("Enter password: ").strip()
+                        if self.password == user_record[1]:  # Validate password
                             print(f"Login Successful as {self.username}")
-                            return True, info[2], self.username, self.password  # Return success with role information
-                        
-                    print("Invalid username or password. Try again.")
-                    attempts += 1
-                    print(f"Attempt lefts:{max_attempts-attempts}")
+                            return True, user_record[2], self.username, self.password  # Return success with role information
+                        else:
+                            print("Invalid password. Try again.")
+                    
+                    print("Maximum password attempts exceeded for this username.")
+                    return False, 'False', 'False', 'False'
 
             except IOError:
                 print(f"Something went wrong, failed to open user.csv file... :{str(IOError)}")
                 return False, 'Error', 'Error', 'Error'
-            
 
-        # After maximum attempts are exhausted, return an error message
+        # After maximum attempts for username validation are exhausted
         print("Maximum attempts exceeded. Please try again later.")
-        return False, 'False', 'False', 'False'
+        return False, 'False', 'False', 'False'    
     
 class StudentTest:
     """

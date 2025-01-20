@@ -1,21 +1,7 @@
 import re
 
-
 fields = []
 rows = []
-
-# row_count=0
-# is_file_exists=os.path.getsize('User.csv') > 0
-# with open('User.csv','a+') as user:  # open the file in append and read mode using a+
-#     user_writer = csv.writer(user)  # created a csv writer object
-#     if  not is_file_exists:  # checks if the file is empty or not 
-#         user_writer.writerow(["Name","Password"])    
-
-#     user_writer.writerow([name,password])  # write the user input to the file 
-#     user.seek(0)  
-#     print(user.read())
-#     user.close()
-
 
 # Function to validate the password
 def validate_password(password):
@@ -31,8 +17,6 @@ def validate_password(password):
     if re.match(pattern, password):
         return True
     raise Exception("Password must be at least 8 characters long, contain at least one lowercase letter, one uppercase letter, one special character, one digit, and must not have spaces.")
-    # except Exception as exe:
-    #     print(str(exe))
 
 
 def open_file(name,branch,roll_number,password):
@@ -41,7 +25,7 @@ def open_file(name,branch,roll_number,password):
     check if the content exists in the file or not, if not then append header first after that append data to the file and read the content of file
     """
     try:
-        with open("User.csv", "a+") as file:
+        with open("user.csv", "a+") as file:
             # Write and read from the text file
             file.seek(0)  # Move to the start of the file
             content = file.read()  # read the cotent of file whether it is empty or not 
@@ -59,8 +43,6 @@ def open_file(name,branch,roll_number,password):
 
     except Exception as exe:  # handle error when error occurs during file opening 
         print("Error in opening file:",str(exe))
-
-
 
 
 def main():

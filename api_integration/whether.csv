@@ -1,3 +1,6 @@
 City-Name,Humidity,Temprature,Pressure,Wind Speed
 kota,39,21.18,1016,3.14
-jaipur,39,17.09,1017,3.23
+jaipur,39,17.09,1017,3.23jaipur,77,14.62,1019,2.06
+jaipur,77,15.62,1019,2.06
+kota,58,19.01,1019,1.67
+jhunjhunu,44,18.04,1019,0.95

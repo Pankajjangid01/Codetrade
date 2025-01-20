@@ -33,7 +33,7 @@ class Calculate:
 # Child class
 class Print(Calculate):
     def __init__(self, num1, num2):
-        super(Calculate,self).add()
+        super().add
         self.add()  # Call the add method to calculate the sum
     
     def show(self):
