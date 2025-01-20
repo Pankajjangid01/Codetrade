@@ -17,14 +17,19 @@ def get_tuple_element(my_tuple):
 def get_last_character(string):
     return string[:5]
 
-my_list = [1,2,3,4,8,5,6,2,7]
+print("Enter a list, separated by spaces:")
+user_input = input()
+my_list = list(user_input.split())
+
 print("First five element of the list:")
 get_list_element(my_list)
 
-my_tuple = (8,2,5,3,4,6)
+print("\nEnter a tuple, separated by spaces:")
+user_input = input()
+my_tuple = list(user_input.split())
 print("\nFirst five element of the Tuple:")
 get_tuple_element(my_tuple)
 
 print("\nFirst five element of the String:")
-string = "Coding"
+string = input("Enter the string:")
 print(get_last_character(string))
